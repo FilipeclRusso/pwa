@@ -6,6 +6,34 @@
     <title>PWA Simplão</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
 
+    <link rel="manifest" href="manifest.json">
+
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="msapplication-TileImage" content="assets/img/icon_144.png">
+    <meta name="msapplication-TileColor" content="#31506F">
+    <meta name="theme-color" content="#4D5360" />
+    <link rel="shortcut icon" sizes="192x192" href="assets/img/icon_192.png">
+    <link rel="shortcut icon" sizes="128x128" href="assets/img/icon_128.png">
+  
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-title" content="PWA Teste">
+    <link rel="apple-touch-icon" href="assets/img/icon_144.png">
+    <link rel="apple-touch-icon" href="touch-icon-iphone.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="assets/img/icon_152.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="assets/img/icon_180.png">
+    <link rel="apple-touch-icon" sizes="167x167" href="assets/img/icon_167.png">
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <link href="assets/img/ios/ipad.png" sizes="3200x4267" rel="apple-touch-startup-image" />
+    <link href="assets/img/ios/ipadpro.png" sizes="3475x4633" rel="apple-touch-startup-image" />
+    <link href="assets/img/ios/ipadpro2.png" sizes="4267x5692" rel="apple-touch-startup-image" />
+    <link href="assets/img/ios/Iphone6Plus.png" sizes="2588x4600" rel="apple-touch-startup-image" />
+    <link href="assets/img/ios/Iphone7.png" sizes="1563x2779" rel="apple-touch-startup-image" />
+    <link href="assets/img/ios/IphoneSE-05.png" sizes="1333x2367" rel="apple-touch-startup-image" />
+    <link href="assets/img/ios/IphoneX-05.png" sizes="2344x5075" rel="apple-touch-startup-image" />
+  
+    <link rel="icon" type="image/png" href="assets/img/icon_144.png">
+
     <style>
       header {
         background-color: #343a40;
@@ -91,5 +119,42 @@
        &copy; Filipe Russo
       </footer>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
+    <!--<script>
+      if('serviceWorker' in navigator){
+        navigator.serviceWorker.register('/service-worker.js').then(function(registration){
+          console.log('Registration successful, scope is:', registration.scope)
+        })
+        .catch(function(error){
+          console.log('Service Worker registration failed, error:', error)
+        })
+      }
+    </script>-->
+    <script>
+      if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.register('/service-worker.js').then(reg => {
+          reg.addEventListener('updatefound', () => {
+            // A wild service worker has appeared in reg.installing!
+            newWorker = reg.installing;
+            newWorker.addEventListener('statechange', () => {
+              // Has network.state changed?
+              switch (newWorker.state) {
+                case 'installed':
+                  if (navigator.serviceWorker.controller) {
+                    // new update available
+                  }
+                  // No update available
+                  break;
+              }
+            });
+          });
+        });
+        let refreshing;
+        navigator.serviceWorker.addEventListener('controllerchange', function () {
+          if (refreshing) return;
+          window.location.reload();
+          refreshing = true;
+        });
+      }
+    </script>
   </body>
 </html>
